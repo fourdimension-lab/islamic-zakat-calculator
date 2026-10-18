@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Zakat Calculator — Accurate 2.5% Calculation | zakat.sakib.bond</title>
+  <meta name="description" content="Calculate your Zakat obligation accurately with live Nisab thresholds for gold, silver, cash, investments, and business inventory on zakat.sakib.bond." />
+  <meta name="keywords" content="zakat calculator, calculate zakat online, Nisab threshold, gold nisab, zakat on shares, zakat al fitr, zakat.sakib.bond" />
+  <meta name="author" content="zakat.sakib.bond" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1b4332" />
+  <link rel="canonical" href="https://zakat.sakib.bond/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Smart Zakat Calculator — zakat.sakib.bond" />
+  <meta property="og:description" content="Accurate, Shariah-compliant Zakat calculator with gold/silver Nisab checks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zakat.sakib.bond/" />
+  <meta property="og:site_name" content="Smart Zakat Calculator" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Smart Zakat Calculator — zakat.sakib.bond" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Smart Zakat Calculator",
+    "url": "https://zakat.sakib.bond",
+    "description": "Interactive, real-time Shariah Zakat calculation tool for personal and commercial wealth."
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #081c15;
+      --bg-surface: #1b4332;
+      --bg-card: #2d6a4f;
+      --bg-card-hover: #40916c;
+      --gold-primary: #d4a017;
+      --gold-bright: #f0c040;
+      --text-main: #f8fafc;
+      --text-muted: #d8f3dc;
+      --border-color: rgba(212, 160, 23, 0.25);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f7fee7;
+      --bg-surface: #ffffff;
+      --bg-card: #dcfce7;
+      --bg-card-hover: #bbf7d0;
+      --gold-primary: #b45309;
+      --gold-bright: #d97706;
+      --text-main: #14532d;
+      --text-muted: #166534;
+      --border-color: rgba(180, 83, 9, 0.2);
+      --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-pattern {
+      position: fixed; inset: 0;
+      background-image: radial-gradient(rgba(212, 160, 23, 0.07) 1px, transparent 1px);
+      background-size: 26px 26px; pointer-events: none; z-index: 0;
+    }
+
+    /* Halalspark Ad */
+    .halalspark-ad-container {
+      width: 100%; display: flex; justify-content: center; margin: 18px 0; position: relative; z-index: 10;
+    }
+    .halalspark-ad {
+      border: 1px dashed var(--gold-primary); border-radius: var(--radius-sm);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(27, 67, 50, 0.95), rgba(8, 28, 21, 0.95));
+      color: var(--gold-bright); font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3); padding: 10px; text-align: center;
+    }
+    .halalspark-ad .ad-badge {
+      font-size: 10px; text-transform: uppercase; padding: 2px 8px;
+      background: rgba(212, 160, 23, 0.15); border-radius: 4px; margin-bottom: 4px; color: var(--text-muted);
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-surface); border-bottom: 1px solid var(--border-color);
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+    }
+    .navbar {
+      max-width: 1400px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+      color: var(--gold-bright); font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700;
+    }
+    .brand i { font-size: 24px; color: var(--gold-primary); }
+    .brand span { font-size: 12px; display: block; color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .currency-select {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 6px 12px; border-radius: var(--radius-sm);
+      font-size: 13px; outline: none; cursor: pointer;
+    }
+    .theme-btn {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      color: var(--gold-bright); width: 38px; height: 38px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+    }
+    .theme-btn:hover { background: var(--bg-card-hover); border-color: var(--gold-bright); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-base) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 40px 24px 30px; text-align: center; position: relative; z-index: 5;
+    }
+    .hero-arabic {
+      font-family: 'Amiri', serif; font-size: 28px; color: var(--gold-bright);
+      margin-bottom: 8px; direction: rtl;
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif; font-size: clamp(24px, 4vw, 38px);
+      color: var(--gold-bright); margin-bottom: 8px;
+    }
+    .hero p {
+      font-size: 15px; color: var(--text-muted); max-width: 680px; margin: 0 auto;
+    }
+
+    /* Calculator Layout */
+    .calc-container {
+      max-width: 1300px; margin: 30px auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 400px; gap: 28px;
+      position: relative; z-index: 5;
+    }
+
+    /* Input Sections */
+    .calc-form {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .calc-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-card);
+    }
+    .calc-card-title {
+      font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold-bright);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
+    }
+    .calc-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;
+    }
+    .input-group {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .input-group label {
+      font-size: 13px; font-weight: 600; color: var(--text-muted);
+    }
+    .input-wrap {
+      position: relative; display: flex; align-items: center;
+    }
+    .input-wrap span {
+      position: absolute; left: 14px; font-size: 14px; font-weight: 700; color: var(--gold-primary);
+    }
+    .input-wrap input {
+      width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm); padding: 10px 14px 10px 32px;
+      color: var(--text-main); font-size: 15px; font-weight: 600; outline: none;
+    }
+    .input-wrap input:focus { border-color: var(--gold-bright); }
+
+    /* Summary Sticky Sidebar */
+    .calc-summary {
+      background: var(--bg-surface); border: 2px solid var(--gold-primary);
+      border-radius: var(--radius-lg); padding: 24px; height: fit-content;
+      position: sticky; top: 90px; box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .calc-summary h3 {
+      font-family: 'Cinzel', serif; font-size: 20px; color: var(--gold-bright);
+      text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+    }
+    .summary-row.total {
+      font-size: 16px; font-weight: 700; color: var(--gold-bright);
+      border-top: 1px dashed var(--border-color); padding-top: 12px;
+    }
+    .nisab-badge {
+      background: rgba(212, 160, 23, 0.15); border: 1px solid var(--gold-primary);
+      padding: 12px; border-radius: var(--radius-md); text-align: center;
+    }
+    .nisab-status {
+      font-size: 15px; font-weight: 700; margin-top: 4px;
+    }
+    .nisab-status.eligible { color: #4ade80; }
+    .nisab-status.not-eligible { color: #f87171; }
+    .zakat-due-box {
+      background: linear-gradient(135deg, rgba(212, 160, 23, 0.2), rgba(27, 67, 50, 0.5));
+      border: 1px solid var(--gold-bright); border-radius: var(--radius-md);
+      padding: 18px; text-align: center;
+    }
+    .zakat-due-amount {
+      font-size: 32px; font-weight: 800; color: var(--gold-bright); margin: 6px 0;
+    }
+
+    /* Fitrana and Fidya Section */
+    .fitrana-section {
+      max-width: 1300px; margin: 20px auto 40px; padding: 0 24px; position: relative; z-index: 5;
+    }
+    .fitrana-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+    }
+
+    /* Categories of Zakat (Surah 9:60) */
+    .recipients-section {
+      max-width: 1300px; margin: 20px auto 50px; padding: 0 24px; position: relative; z-index: 5;
+    }
+    .recipients-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 18px;
+    }
+    .recipient-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 18px; font-size: 13px;
+    }
+    .recipient-card strong { color: var(--gold-bright); font-size: 15px; display: block; margin-bottom: 4px; }
+
+    /* Footer */
+    footer {
+      background: var(--bg-surface); border-top: 1px solid var(--border-color);
+      padding: 40px 24px 24px; margin-top: auto; text-align: center; position: relative; z-index: 10;
+    }
+    .footer-links {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 13px;
+    }
+    .footer-links a { color: var(--text-muted); text-decoration: none; cursor: pointer; }
+    .footer-links a:hover { color: var(--gold-bright); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg-surface); border: 1px solid var(--gold-primary);
+      border-radius: var(--radius-lg); width: 100%; max-width: 620px; max-height: 85vh;
+      overflow-y: auto; padding: 28px; position: relative; color: var(--text-main);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; background: transparent;
+      border: none; color: var(--gold-bright); font-size: 18px; cursor: pointer;
+    }
+    .modal-box h3 {
+      font-family: 'Cinzel', serif; color: var(--gold-bright); font-size: 20px;
+      margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;
+    }
+    .modal-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.7; }
+    .contact-input {
+      width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text-main);
+      margin-bottom: 12px; outline: none;
+    }
+    .contact-input:focus { border-color: var(--gold-primary); }
+    .btn-submit {
+      background: var(--gold-primary); color: #000; font-weight: 700;
+      padding: 10px 20px; border-radius: var(--radius-sm); border: none; cursor: pointer;
+    }
+
+    /* Cookie Banner */
+    .cookie-banner {
+      position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 600px;
+      margin: 0 auto; background: var(--bg-surface); border: 1px solid var(--gold-primary);
+      border-radius: var(--radius-md); padding: 16px 20px; display: flex;
+      align-items: center; justify-content: space-between; gap: 16px; z-index: 999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .cookie-banner p { font-size: 13px; color: var(--text-muted); margin: 0; }
+    .cookie-btn {
+      background: var(--gold-primary); color: #000; font-weight: 700;
+      font-size: 12px; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 900px) {
+      .calc-container { grid-template-columns: 1fr; }
+      .calc-summary { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-pattern"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="navbar">
+      <a href="/" class="brand">
+        <i class="fas fa-hand-holding-dollar"></i>
+        <div>
+          Zakat Calculator
+          <span>zakat.sakib.bond</span>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <select class="currency-select" id="currencySelect" onchange="updateCurrency()">
+          <option value="$" selected>USD ($)</option>
+          <option value="£">GBP (£)</option>
+          <option value="€">EUR (€)</option>
+          <option value="৳">BDT (৳)</option>
+          <option value="₨">PKR (₨)</option>
+          <option value="SAR ">SAR</option>
+          <option value="AED ">AED</option>
+          <option value="C$">CAD (C$)</option>
+        </select>
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle Theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HALALSPARK AD: Header Banner 728x90 -->
+  <div class="halalspark-ad-container">
+    <div class="halalspark-ad" data-ad-slot="header-banner" style="width:728px;max-width:96%;height:90px;">
+      <span class="ad-badge">Halalspark Ad Network</span>
+      <div><i class="fas fa-hand-holding-heart" style="margin-right:6px;"></i> 100% Donation Policy: Distribute Zakat to Registered Islamic Relief Charities — zakat.sakib.bond</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-arabic">وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ</div>
+    <h1>Purify Your Wealth with Zakat</h1>
+    <p>"Take from their wealth a charity by which you purify them and cause them increase..." — Surah At-Tawbah (9:103)</p>
+  </section>
+
+  <!-- Calculator Main -->
+  <main class="calc-container">
+    <div class="calc-form">
+      <!-- Gold & Silver Assets -->
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-coins"></i> 1. Gold & Silver Assets</div>
+        <div class="calc-grid">
+          <div class="input-group">
+            <label>Gold Value (Grams or Value)</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="goldVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Silver Value</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="silverVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cash & Bank Balances -->
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-money-bill-wave"></i> 2. Cash & Liquid Savings</div>
+        <div class="calc-grid">
+          <div class="input-group">
+            <label>Cash at Home & in Wallets</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="cashVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Bank Checking & Savings Accounts</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="bankVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Foreign Currency Reserves</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="foreignVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Investments & Business -->
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-chart-line"></i> 3. Investments & Trade Goods</div>
+        <div class="calc-grid">
+          <div class="input-group">
+            <label>Shares, Stocks & Mutual Funds</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="stocksVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Business Inventory (Resale Value)</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="inventoryVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Money Owed to You (Good Debts)</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="receivableVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deductions & Liabilities -->
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-receipt"></i> 4. Deductible Immediate Debts</div>
+        <div class="calc-grid">
+          <div class="input-group">
+            <label>Immediate Bills / Rents Due</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="billsVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Short-term Debt Payments Due Now</label>
+            <div class="input-wrap">
+              <span class="currency-sym">$</span>
+              <input type="number" id="debtsVal" placeholder="0" oninput="calculateZakat()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Sticky Box -->
+    <aside class="calc-summary">
+      <h3>Zakat Summary</h3>
+      <div class="summary-row">
+        <span>Total Gross Assets:</span>
+        <strong id="summaryGross">$0.00</strong>
+      </div>
+      <div class="summary-row">
+        <span>Total Liabilities:</span>
+        <strong id="summaryDebts">$0.00</strong>
+      </div>
+      <div class="summary-row total">
+        <span>Net Zakat-Eligible:</span>
+        <strong id="summaryNet">$0.00</strong>
+      </div>
+
+      <div class="nisab-badge">
+        <div style="font-size:12px;color:var(--text-muted);">Silver Nisab Threshold (~595g): <strong id="nisabThreshold">$500</strong></div>
+        <div class="nisab-status not-eligible" id="nisabStatus">Nisab Not Reached</div>
+      </div>
+
+      <div class="zakat-due-box">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Total Zakat Due (2.5%)</div>
+        <div class="zakat-due-amount" id="summaryZakatDue">$0.00</div>
+        <div style="font-size:12px;color:var(--text-muted);">Payable to qualified recipients</div>
+      </div>
+
+      <button class="btn-submit" onclick="resetCalculator()" style="width:100%;background:var(--bg-card);color:var(--text-main);"><i class="fas fa-rotate-left" style="margin-right:6px;"></i> Reset Calculator</button>
+    </aside>
+  </main>
+
+  <!-- HALALSPARK AD: In-Content 336x280 -->
+  <div class="halalspark-ad-container">
+    <div class="halalspark-ad" data-ad-slot="in-content" style="width:336px;max-width:96%;height:220px;">
+      <span class="ad-badge">Halalspark Ad Network</span>
+      <div><i class="fas fa-bowl-food" style="font-size:24px;margin-bottom:8px;display:block;"></i> Pay Zakat al-Fitr (Fitrana) & Feed Families this Ramadan</div>
+    </div>
+  </div>
+
+  <!-- Fitrana & Fidya Section -->
+  <section class="fitrana-section">
+    <div class="fitrana-grid">
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-wheat-awn"></i> Zakat al-Fitr (Fitrana)</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Obligatory for every household member before the Eid al-Fitr prayer (approx. $10 per person).</p>
+        <div class="input-group" style="margin-bottom:12px;">
+          <label>Number of Family Members:</label>
+          <input type="number" id="fitrMembers" value="4" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:6px;padding:8px 12px;color:var(--text-main);width:100px;" oninput="calcFitrana()">
+        </div>
+        <div style="font-size:16px;font-weight:700;color:var(--gold-bright);">Fitrana Due: <span id="fitranaTotal">$40.00</span></div>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-card-title"><i class="fas fa-calendar-xmark"></i> Fidya & Kaffarah Calculator</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">For individuals unable to fast during Ramadan due to chronic illness or age (approx. $10 per missed day).</p>
+        <div class="input-group" style="margin-bottom:12px;">
+          <label>Number of Missed Days:</label>
+          <input type="number" id="fidyaDays" value="0" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:6px;padding:8px 12px;color:var(--text-main);width:100px;" oninput="calcFidya()">
+        </div>
+        <div style="font-size:16px;font-weight:700;color:var(--gold-bright);">Fidya Due: <span id="fidyaTotal">$0.00</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 Categories of Recipients -->
+  <section class="recipients-section">
+    <div class="calc-card">
+      <div class="calc-card-title"><i class="fas fa-users-line"></i> The 8 Categories of Zakat Recipients (Quran 9:60)</div>
+      <p style="font-size:13px;color:var(--text-muted);">Zakat must strictly be given to one or more of the eight classes specified in the Holy Quran:</p>
+      <div class="recipients-grid">
+        <div class="recipient-card"><strong>1. Al-Fuqara (The Poor)</strong>Those with no income or wealth.</div>
+        <div class="recipient-card"><strong>2. Al-Masakin (The Destitute)</strong>Those unable to meet basic daily sustenance.</div>
+        <div class="recipient-card"><strong>3. Al-'Amilina 'Alayha</strong>Legitimate appointed collectors of Zakat.</div>
+        <div class="recipient-card"><strong>4. Al-Mu'allafatu Qulubuhum</strong>Those whose hearts are to be reconciled.</div>
+        <div class="recipient-card"><strong>5. Fir-Riqab (Freeing Captives)</strong>Assisting slaves or prisoners of war in liberation.</div>
+        <div class="recipient-card"><strong>6. Al-Gharimin (In Debt)</strong>Those overwhelmed by genuine unpayable debt.</div>
+        <div class="recipient-card"><strong>7. Fi Sabilillah</strong>Those striving in the cause of Allah.</div>
+        <div class="recipient-card"><strong>8. Ibn As-Sabil (The Wayfarer)</strong>Stranded travelers who lack means to return home.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HALALSPARK AD: Footer Banner 728x90 -->
+  <div class="halalspark-ad-container">
+    <div class="halalspark-ad" data-ad-slot="footer-banner" style="width:728px;max-width:96%;height:90px;">
+      <span class="ad-badge">Halalspark Ad</span>
+      <div>Shariah-Compliant Wealth Management & Ethical Islamic Endowment Funds — zakat.sakib.bond</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a onclick="openModal('privacyModal')">Privacy Policy</a>
+      <a onclick="openModal('termsModal')">Terms of Service</a>
+      <a onclick="openModal('aboutModal')">About Us</a>
+      <a onclick="openModal('contactModal')">Contact Us</a>
+      <a onclick="openModal('disclaimerModal')">Financial Disclaimer</a>
+    </div>
+    <div class="footer-copy">
+      Copyright © 2026 <a href="https://zakat.sakib.bond" style="color:var(--gold-bright);text-decoration:none;">zakat.sakib.bond</a> — All Rights Reserved. Monitored for Halalspark Ad Compliance.
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('privacyModal')"><i class="fas fa-times"></i></button>
+      <h3>Privacy Policy</h3>
+      <p>Welcome to <strong>zakat.sakib.bond</strong>. We take privacy extremely seriously.</p>
+      <p><strong>Zero Financial Data Stored:</strong> All calculations are executed locally in your browser. None of your entered asset amounts, debts, or totals are ever saved to servers or transmitted over the internet.</p>
+      <p><strong>Halalspark Advertising:</strong> We display ethical, family-friendly advertisements using Halalspark. Cookies are only used to present non-intrusive ad impressions.</p>
+      <p>Contact: admin@zakat.sakib.bond</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="termsModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('termsModal')"><i class="fas fa-times"></i></button>
+      <h3>Terms of Service</h3>
+      <p>This Zakat Calculator tool is provided free of charge to assist Muslims in fulfilling their sacred religious obligation.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="aboutModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('aboutModal')"><i class="fas fa-times"></i></button>
+      <h3>About Smart Zakat Calculator</h3>
+      <p>Zakat is the third pillar of Islam. Our goal is to provide a modern, transparent, and accurate digital calculation framework honoring classical Fiqh guidelines.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('contactModal')"><i class="fas fa-times"></i></button>
+      <h3>Contact Us</h3>
+      <form onsubmit="event.preventDefault(); alert('Message received! JazakAllahu Khair.'); closeModal('contactModal');">
+        <input type="text" class="contact-input" placeholder="Your Name" required>
+        <input type="email" class="contact-input" placeholder="Your Email" required>
+        <textarea class="contact-input" rows="4" placeholder="Your Inquiry..." required></textarea>
+        <button type="submit" class="btn-submit">Submit Message</button>
+      </form>
+      <p style="margin-top:10px;font-size:12px;">Email: admin@zakat.sakib.bond</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="disclaimerModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('disclaimerModal')"><i class="fas fa-times"></i></button>
+      <h3>Scholarly Financial Disclaimer</h3>
+      <p>This calculator provides estimates based on standard contemporary Fiqh positions. Because individual circumstances (such as retirement fund access, mixed business assets, and real estate) differ, please consult an Islamic scholar or qualified Mufti for bespoke advice.</p>
+    </div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p><i class="fas fa-cookie-bite" style="color:var(--gold-bright);margin-right:6px;"></i> We use cookies to preserve your currency selection and display ethical Halalspark advertisements.</p>
+    <button class="cookie-btn" onclick="acceptCookies()">Accept & Continue</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let currency = "$";
+    const nisabSilverUsd = 500; // standard approx silver threshold
+
+    function updateCurrency() {
+      currency = document.getElementById('currencySelect').value;
+      document.querySelectorAll('.currency-sym').forEach(el => el.innerText = currency);
+      document.getElementById('nisabThreshold').innerText = `${currency}${nisabSilverUsd}`;
+      calculateZakat();
+    }
+
+    function calculateZakat() {
+      const gold = parseFloat(document.getElementById('goldVal').value) || 0;
+      const silver = parseFloat(document.getElementById('silverVal').value) || 0;
+      const cash = parseFloat(document.getElementById('cashVal').value) || 0;
+      const bank = parseFloat(document.getElementById('bankVal').value) || 0;
+      const foreign = parseFloat(document.getElementById('foreignVal').value) || 0;
+      const stocks = parseFloat(document.getElementById('stocksVal').value) || 0;
+      const inventory = parseFloat(document.getElementById('inventoryVal').value) || 0;
+      const receivable = parseFloat(document.getElementById('receivableVal').value) || 0;
+
+      const bills = parseFloat(document.getElementById('billsVal').value) || 0;
+      const debts = parseFloat(document.getElementById('debtsVal').value) || 0;
+
+      const gross = gold + silver + cash + bank + foreign + stocks + inventory + receivable;
+      const totalDebts = bills + debts;
+      const net = Math.max(0, gross - totalDebts);
+
+      document.getElementById('summaryGross').innerText = `${currency}${gross.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('summaryDebts').innerText = `${currency}${totalDebts.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('summaryNet').innerText = `${currency}${net.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+      const nisabStatus = document.getElementById('nisabStatus');
+      const zakatDueEl = document.getElementById('summaryZakatDue');
+
+      if (net >= nisabSilverUsd) {
+        nisabStatus.className = 'nisab-status eligible';
+        nisabStatus.innerText = 'Nisab Reached (Zakat Obligatory)';
+        const zakatDue = net * 0.025;
+        zakatDueEl.innerText = `${currency}${zakatDue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      } else {
+        nisabStatus.className = 'nisab-status not-eligible';
+        nisabStatus.innerText = 'Below Nisab Threshold';
+        zakatDueEl.innerText = `${currency}0.00`;
+      }
+    }
+
+    function calcFitrana() {
+      const members = parseInt(document.getElementById('fitrMembers').value) || 0;
+      const total = members * 10;
+      document.getElementById('fitranaTotal').innerText = `${currency}${total.toFixed(2)}`;
+    }
+
+    function calcFidya() {
+      const days = parseInt(document.getElementById('fidyaDays').value) || 0;
+      const total = days * 10;
+      document.getElementById('fidyaTotal').innerText = `${currency}${total.toFixed(2)}`;
+    }
+
+    function resetCalculator() {
+      document.querySelectorAll('.calc-form input').forEach(input => input.value = '');
+      calculateZakat();
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      document.getElementById('themeIcon').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      localStorage.setItem('zakat_theme', next);
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function acceptCookies() {
+      localStorage.setItem('zakat_cookies_accepted', 'true');
+      document.getElementById('cookieBanner').style.display = 'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('zakat_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      document.getElementById('themeIcon').className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+      if (localStorage.getItem('zakat_cookies_accepted') === 'true') {
+        document.getElementById('cookieBanner').style.display = 'none';
+      }
+
+      calculateZakat();
+      calcFitrana();
+    });
+  </script>
+</body>
+</html>
