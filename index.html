@@ -130,24 +130,6 @@
     }
     .theme-btn:hover, .print-btn:hover { background: var(--bg-card-hover); border-color: var(--gold-bright); }
 
-    /* Halalspark Ad */
-    .halalspark-ad-container {
-      width: 100%; display: flex; justify-content: center; margin: 18px 0; position: relative; z-index: 10;
-    }
-    .halalspark-ad {
-      border: 1px dashed var(--gold-primary); border-radius: var(--radius-sm);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, rgba(15, 46, 34, 0.95), rgba(6, 23, 17, 0.95));
-      color: var(--gold-bright); padding: 12px 20px; text-align: center;
-      font-size: 13px; font-weight: 600; box-shadow: var(--shadow-card);
-    }
-    .halalspark-ad .ad-badge {
-      font-size: 10px; background: rgba(212, 160, 23, 0.2);
-      border: 1px solid var(--gold-primary); color: var(--gold-bright);
-      padding: 2px 8px; border-radius: 4px; text-transform: uppercase;
-      letter-spacing: 1px; margin-bottom: 6px;
-    }
-
     /* Hero */
     .hero {
       text-align: center; padding: 32px 20px 20px; position: relative; z-index: 5; max-width: 950px; margin: 0 auto;
@@ -408,7 +390,7 @@
     /* Print View */
     @media print {
       body { background: #fff !important; color: #000 !important; }
-      header, footer, .halalspark-ad-container, .rate-bar, .fitrana-section, .recipients-section, .btn-action, .theme-btn, .print-btn, .cookie-banner {
+      header, footer, .rate-bar, .fitrana-section, .recipients-section, .btn-action, .theme-btn, .print-btn, .cookie-banner {
         display: none !important;
       }
       .calc-container { display: block !important; padding: 0 !important; margin: 0 !important; }
@@ -472,12 +454,7 @@
     </div>
   </header>
 
-  <!-- HALALSPARK AD: Header Banner 728x90 -->
-  <div class="halalspark-ad-container">
-    <div class="halalspark-ad" data-ad-slot="header-banner" style="width:728px;max-width:96%;height:90px;">
-      <span class="ad-badge">Halalspark Ad Network</span>
-      <div><i class="fas fa-hand-holding-heart" style="margin-right:6px;"></i> Automate Your 2.5% Annual Zakat to Verified Grassroots Islamic Charities — zakat.sakib.bond</div>
-    </div>
+  
   </div>
 
   <!-- Hero -->
@@ -808,12 +785,7 @@
     </aside>
   </main>
 
-  <!-- HALALSPARK AD: In-Content 336x280 -->
-  <div class="halalspark-ad-container">
-    <div class="halalspark-ad" data-ad-slot="in-content" style="width:336px;max-width:96%;height:220px;">
-      <span class="ad-badge">Halalspark Ad Network</span>
-      <div><i class="fas fa-bowl-food" style="font-size:24px;margin-bottom:8px;display:block;"></i> Fulfill Your Zakat al-Fitr (Fitrana) & Feed Needy Families this Eid — zakat.sakib.bond</div>
-    </div>
+  
   </div>
 
   <!-- Fitrana & Fidya Section -->
@@ -923,12 +895,7 @@
     </div>
   </section>
 
-  <!-- HALALSPARK AD: Footer Banner 728x90 -->
-  <div class="halalspark-ad-container">
-    <div class="halalspark-ad" data-ad-slot="footer-banner" style="width:728px;max-width:96%;height:90px;">
-      <span class="ad-badge">Halalspark Ad</span>
-      <div>Shariah-Compliant Wealth Management & Ethical Islamic Endowment Funds — zakat.sakib.bond</div>
-    </div>
+  
   </div>
 
   <!-- Footer -->
@@ -941,7 +908,7 @@
       <a onclick="openModal('disclaimerModal')">Fiqh Disclaimer</a>
     </div>
     <div class="footer-copy">
-      Copyright © 2026 <a href="https://zakat.sakib.bond" style="color:var(--gold-bright);text-decoration:none;">zakat.sakib.bond</a> — All Rights Reserved. Monitored for Halalspark Ad Compliance.
+      Copyright © 2026 <a href="https://zakat.sakib.bond" style="color:var(--gold-bright);text-decoration:none;">zakat.sakib.bond</a> — All Rights Reserved.
     </div>
   </footer>
 
@@ -952,7 +919,7 @@
       <h3>Privacy Policy</h3>
       <p>Welcome to <strong>zakat.sakib.bond</strong>. We take privacy extremely seriously.</p>
       <p><strong>Zero Financial Data Stored:</strong> All calculations are executed locally in your browser memory. None of your entered asset amounts, debts, or totals are ever saved to servers or transmitted over the internet.</p>
-      <p><strong>Halalspark Advertising:</strong> We display ethical, family-friendly advertisements using Halalspark. Cookies are only used to present non-intrusive ad impressions.</p>
+      <p><strong>Zero Data Tracking:</strong> We do not track, profile, or sell user records.</p>
       <p>Contact: admin@zakat.sakib.bond</p>
     </div>
   </div>
@@ -998,7 +965,7 @@
 
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookieBanner" style="position:fixed;bottom:20px;left:20px;right:20px;max-width:600px;margin:0 auto;background:var(--bg-surface);border:1px solid var(--gold-primary);border-radius:var(--radius-md);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,0.6);">
-    <p style="font-size:13px;color:var(--text-muted);margin:0;"><i class="fas fa-cookie-bite" style="color:var(--gold-bright);margin-right:6px;"></i> We use cookies to preserve your currency selection and display ethical Halalspark advertisements.</p>
+    <p style="font-size:13px;color:var(--text-muted);margin:0;"><i class="fas fa-cookie-bite" style="color:var(--gold-bright);margin-right:6px;"></i> We use cookies to preserve your currency selection and preserve your settings.</p>
     <button onclick="acceptCookies()" style="background:var(--gold-primary);color:#000;font-weight:700;font-size:12px;padding:8px 16px;border-radius:6px;border:none;cursor:pointer;white-space:nowrap;">Accept & Continue</button>
   </div>
 
